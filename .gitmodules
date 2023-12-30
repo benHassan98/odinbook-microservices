@@ -1,0 +1,3 @@
+[submodule "AccountService"]
+	path = AccountService
+	url = https://github.com/benHassan98/account-service.git
