@@ -1,3 +1,24 @@
 [submodule "AccountService"]
 	path = AccountService
 	url = https://github.com/benHassan98/account-service.git
+[submodule "AuthService"]
+	path = AuthService
+	url = https://github.com/benHassan98/auth-service.git
+[submodule "ChatService"]
+	path = ChatService
+	url = https://github.com/benHassan98/chat-service.git
+[submodule "PostService"]
+	path = PostService
+	url = https://github.com/benHassan98/post-service.git
+[submodule "NotificationService"]
+	path = NotificationService
+	url = https://github.com/benHassan98/notification-service.git
+[submodule "GatewayService"]
+	path = GatewayService
+	url = https://github.com/benHassan98/gateway-service.git
+[submodule "BackendService"]
+	path = BackendService
+	url = https://github.com/benHassan98/bff-service.git
+[submodule "FrontendService"]
+	path = FrontendService
+	url = https://github.com/benHassan98/frontend-service.git
