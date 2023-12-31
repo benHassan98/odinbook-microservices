@@ -64,7 +64,7 @@ A.by using backend for frontend pattern\
 A.by redirecting to the backend for frontend\
 
 **Q.How to effectively use spring cloud gateway**\
-A.By configuring all services's CORS to only accept requests from the gateway and configuring the gateway itself to only accept requests from the frontend\
+A.By configuring all services's CORS to only accept requests from the gateway and configuring the gateway itself to only accept requests from the frontend
 
 
 
