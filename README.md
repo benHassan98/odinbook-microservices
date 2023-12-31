@@ -54,6 +54,17 @@ and a new table posts_friends_visibility( post_id, friend_id )\
 **Q.How do all users sync post's likes and comments**\
 A.I'll create two auto-delete queues in RabbitMQ where the first will be called\ 'post.${id}.add' and the second one 'post.${id}.remove' and every user has the post will be able to listen to these queues so that when a new like or comment is created it will be pushed to add queue or when like or comment removed it will be pushed to the remove queue\
 
+**Q.How to handle user's availability**\
+A.every user on log in will send a request through RabbitMQ to know who are the currently available users and will send another request to notify his friends that he became available and on logout he will send a request to notify his friends that he became unavailable\
+
+**Q.How to store cookies securely**\
+A.by using backend for frontend pattern\
+
+**Q.How to handle redirect step in OAUTH2 process while using SPA(single page application)**\
+A.by redirecting to the backend for frontend\
+
+**Q.How to effectively use spring cloud gateway**\
+A.By configuring all services's CORS to only accept requests from the gateway and configuring the gateway itself to only accept requests from the frontend\
 
 
 
