@@ -45,7 +45,7 @@ with PostgreSQL
 A.As a HTML content but i need to sanitize the content before storing\
 
 **Q.How to store images**\
-A.Store images ids in the src attribute '<img src=id />'\
+A.Store images ids in the src attribute "<img src=id />"\
 
 **Q.How to handle post visibility**\
 A.I'll create two columns in posts table called is_followers_visible that will represent if followers are allowed to see this post ,friends_visibility_type that if set to true then every friend returned will be able to see the post else then every friend returned won't be able to see the post, \
