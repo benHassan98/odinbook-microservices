@@ -45,14 +45,14 @@ with PostgreSQL
 A.As a HTML content but i need to sanitize the content before storing\
 
 **Q.How to store images**\
-A.Store images ids in the src attribute "<img src=id />"\
+A.Store images ids in the src attribute\
 
 **Q.How to handle post visibility**\
 A.I'll create two columns in posts table called is_followers_visible that will represent if followers are allowed to see this post ,friends_visibility_type that if set to true then every friend returned will be able to see the post else then every friend returned won't be able to see the post, \
-and a new table posts_friends_visibility( post_id, friend_id ).\
+and a new table posts_friends_visibility( post_id, friend_id )\
 
 **Q.How do all users sync post's likes and comments**\
-A.I'll create two auto-delete queues in RabbitMQ where the first will be called\ 'post.${id}.add' and the second one 'post.${id}.remove' and every user has the post will be able to listen to these queues so that when a new like or comment is created it will be pushed to add queue or when like or comment removed it will be pushed to the remove queue.\
+A.I'll create two auto-delete queues in RabbitMQ where the first will be called\ 'post.${id}.add' and the second one 'post.${id}.remove' and every user has the post will be able to listen to these queues so that when a new like or comment is created it will be pushed to add queue or when like or comment removed it will be pushed to the remove queue\
 
 
 
