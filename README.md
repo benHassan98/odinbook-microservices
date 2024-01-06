@@ -20,7 +20,7 @@ Say what the step will be
 docker compose up -d
 ```
 
-now you can open http://localhost:5173 to interact with the app
+now you can open http://localhost:80 to interact with the app
 
 ## Technologies Used
 
