@@ -135,10 +135,8 @@ services:
   frontend-service:
     image: benhassan98/frontend-service-image
     container_name: frontend-service
-    env_file:
-    - .frontend_env
     ports:  
-    - 5173:5173
+    - 80:80
     depends_on:  
     - gateway-service
     - bff-service  
