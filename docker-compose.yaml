@@ -36,7 +36,7 @@ services:
     - CLIENT_ID=client
     - CLIENT_SECRET=secret
     - REDIRECT_URL=http://bff-service:8080/oauth2/code
-    - POST_LOGOUT_URL=http://localhost:80
+    - POST_LOGOUT_URL=http://frontend-service:80
     - BACKEND_URL=http://bff-service:8080
     depends_on:  
     - postgres  
@@ -51,7 +51,7 @@ services:
     - CHAT_URL=http://chat-service:8080
     - ACCOUNT_URL=http://account-service:8080
     - NOTIFICATION_URL=http://notification-service:8080
-    - FRONTEND_URL=http://localhost:80
+    - FRONTEND_URL=http://frontend-service:80
     expose:  
     - 8080  
       
@@ -66,7 +66,7 @@ services:
     environment:  
     - AUTH_URL=http://auth-server:8080  
     - GATEWAY_URL=http://gateway-service:8080  
-    - FRONTEND_URL=http://localhost:80
+    - FRONTEND_URL=http://frontend-service:80
     expose:
     - 8080
     depends_on:
@@ -138,7 +138,7 @@ services:
     networks:
     - odinbook-network
     environment:
-    - APP_URL=http://localhost:80
+    - APP_URL=http://frontend-service:80
     - REDIRECT_URL=http://bff-service:8080/oauth2/code
     - AUTH_SERVER=http://auth-server:8080
     - ACCOUNT_SERVICE=http://account-service:8080
