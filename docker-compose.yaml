@@ -44,7 +44,7 @@ services:
     - CHAT_URL=http://chat-service:8080
     - ACCOUNT_URL=http://account-service:8080
     - NOTIFICATION_URL=http://notification-service:8080
-    - FRONTEND_URL=http://frontend-service:5173
+    - FRONTEND_URL=http://localhost:80
     expose:  
     - 8080  
       
@@ -57,7 +57,7 @@ services:
     environment:  
     - AUTH_URL=http://auth-server:8080  
     - GATEWAY_URL=http://gateway-service:8080  
-    - FRONTEND_URL=http://frontend-service:5173  
+    - FRONTEND_URL=http://localhost:80
     expose:
     - 8080
     depends_on:
