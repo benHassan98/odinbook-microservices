@@ -121,7 +121,7 @@ services:
     image: benhassan98/bff-service-image
     container_name: bff-service  
     environment:
-    - APP_URL=http://frontend-service:5173
+    - APP_URL=http://localhost:80
     - REDIRECT_URL=http://bff-service:8080/oauth2/code
     - AUTH_SERVER=http://auth-server:8080
     - ACCOUNT_SERVICE=http://account-service:8080
