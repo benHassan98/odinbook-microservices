@@ -2,8 +2,6 @@ services:
   postgres:
     image: postgres:16.1
     container_name: postgres
-    networks:
-    - odinbook-network
     expose:
     - 5432
     volumes:  
@@ -15,8 +13,6 @@ services:
   rabbitmq:
     image: rabbitmq
     container_name: rabbitmq
-    networks:
-    - odinbook-network
     volumes:
     - ./enabled_plugins:/etc/rabbitmq/enabled_plugins
     expose:
@@ -26,8 +22,6 @@ services:
   auth-server:
     image: benhassan98/auth-server-image
     container_name: auth-server
-    networks:
-    - odinbook-network
     expose:
     - 8080
     env_file:  
@@ -36,7 +30,7 @@ services:
     - CLIENT_ID=client
     - CLIENT_SECRET=secret
     - REDIRECT_URL=http://bff-service:8080/oauth2/code
-    - POST_LOGOUT_URL=http://frontend-service:80
+    - POST_LOGOUT_URL=http://localhost:9000
     - BACKEND_URL=http://bff-service:8080
     depends_on:  
     - postgres  
@@ -44,29 +38,25 @@ services:
   gateway-service:
     image: benhassan98/gateway-service-image
     container_name: gateway-service
-    networks:
-    - odinbook-network
     environment:
     - POST_URL=http://post-service:8080
     - CHAT_URL=http://chat-service:8080
     - ACCOUNT_URL=http://account-service:8080
     - NOTIFICATION_URL=http://notification-service:8080
-    - FRONTEND_URL=http://frontend-service:80
-    expose:  
-    - 8080  
+    - FRONTEND_URL=http://localhost:9000
+    ports:  
+    - 8080:8080  
       
   account-service:
     image: benhassan98/account-service-image
     container_name: account-service
-    networks:
-    - odinbook-network
     env_file:
     - .db_env
     - .mq_env  
     environment:  
     - AUTH_URL=http://auth-server:8080  
     - GATEWAY_URL=http://gateway-service:8080  
-    - FRONTEND_URL=http://frontend-service:80
+    - FRONTEND_URL=http://localhost:9000
     expose:
     - 8080
     depends_on:
@@ -78,8 +68,6 @@ services:
   post-service:
     image: benhassan98/post-service-image
     container_name: post-service
-    networks:
-    - odinbook-network
     env_file:
     - .db_env
     - .mq_env
@@ -97,8 +85,6 @@ services:
   chat-service:
     image: benhassan98/chat-service-image
     container_name: chat-service
-    networks:
-    - odinbook-network
     env_file:
     - .db_env
     - .mq_env
@@ -116,8 +102,6 @@ services:
   notification-service:    
     image: benhassan98/notification-service-image
     container_name: notification-service
-    networks:
-    - odinbook-network
     env_file:
     - .db_env
     - .mq_env
@@ -135,31 +119,24 @@ services:
   bff-service:
     image: benhassan98/bff-service-image
     container_name: bff-service  
-    networks:
-    - odinbook-network
     environment:
-    - APP_URL=http://frontend-service:80
+    - APP_URL=http://localhost:9000
     - REDIRECT_URL=http://bff-service:8080/oauth2/code
     - AUTH_SERVER=http://auth-server:8080
     - ACCOUNT_SERVICE=http://account-service:8080
     - CLIENT_ID=client
     - CLIENT_SECRET=secret
-    expose:  
-    - 8080
+    ports:  
+    - 8888:8080
     depends_on:  
     - auth-server  
 
   frontend-service:
     image: benhassan98/frontend-service-image
     container_name: frontend-service
-    networks:
-    - odinbook-network
-    expose:  
-    - 80
+    ports:  
+    - 9000:80
     depends_on:  
     - gateway-service
     - bff-service  
-
-networks:
-  odinbook-network:
 
