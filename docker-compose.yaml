@@ -31,7 +31,7 @@ services:
     - CLIENT_ID=client
     - CLIENT_SECRET=secret
     - REDIRECT_URL=http://bff-service:8080/oauth2/code
-    - POST_LOGOUT_URL=http://frontend-service:5173  
+    - POST_LOGOUT_URL=http://localhost:80
     - BACKEND_URL=http://bff-service:8080
     depends_on:  
     - postgres  
