@@ -131,6 +131,7 @@ FOR EACH ROW
 WHEN (NEW.is_deleted = true AND OLD.is_deleted = false)
 EXECUTE FUNCTION clean_post();       
 
+INSERT INTO accounts(picture, fullname, username, email, roles, password, is_verified, about_me) VALUES('default', 'example', 'example', 'example@gmail.com', 'ROLE_USER', '$2a$10$pGXq2Qy/pCKqChRl68dKKOLvlrekxMpghgjQ3rgl./YGKuyA50xSm', true, 'for demo purpose');
 
 commit;
 
