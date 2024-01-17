@@ -24,14 +24,19 @@ now you can open http://localhost:9000 to interact with the app
 
 ## Technologies Used
 
-* Spring Boot - to avoid boiler plate code
-and the hassle of configuring XML files
+* Spring Boot - to avoid boiler plate code and the hassle of configuring XML files
+  
 * Spring Web -  to create REST endpoints
-* Spring Data JPA  - to facilitate persisting data 
-with PostgreSQL
+  
+* Spring Data JPA  - to facilitate persisting data with PostgreSQL
+  
 * Spring Security with OAUTH2 - to prevent anonymous users to access forbidden resources
+  
+* Redis - to communicate asynchronously between services
 
-* Spring Integration with RabbitMQ - to easily communicate between different microservices components 
+* Spring Cloud Eureka Discovery - to allow microservices to register themselves and discover other services
+
+* Spring Cloud Config Server - HTTP resource-based API for external configuration
 
 * Spring Cloud Gateway - to make requests only pass through one entry point hence increasing security
 
