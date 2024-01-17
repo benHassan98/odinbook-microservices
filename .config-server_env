@@ -1,0 +1,4 @@
+GIT_URL=https://github.com/benHassan98/odinbook-config
+GIT_USERNAME=benHassan98
+GIT_PASSWORD=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
+EUREKA_SERVER_URL=http://discovery-server:8761

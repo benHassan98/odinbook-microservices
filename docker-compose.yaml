@@ -9,134 +9,137 @@ services:
     environment:  
     - POSTGRES_PASSWORD=root
 
-
-  rabbitmq:
-    image: rabbitmq
-    container_name: rabbitmq
-    volumes:
-    - ./enabled_plugins:/etc/rabbitmq/enabled_plugins
+  redis:
+    image: redis:7.0
+    container_name: redis
     expose:
-    - 5672
-    - 61613  
-
-  auth-server:
-    image: benhassan98/auth-server-image
-    container_name: auth-server
-    expose:
-    - 8080
-    env_file:  
-    - .db_env  
-    environment:
-    - CLIENT_ID=client
-    - CLIENT_SECRET=secret
-    - REDIRECT_URL=http://bff-service:8080/oauth2/code
-    - POST_LOGOUT_URL=http://localhost:9000
-    - BACKEND_URL=http://bff-service:8080
-    depends_on:  
-    - postgres  
+    - 6379
   
-  gateway-service:
-    image: benhassan98/gateway-service-image
-    container_name: gateway-service
-    environment:
-    - POST_URL=http://post-service:8080
-    - CHAT_URL=http://chat-service:8080
-    - ACCOUNT_URL=http://account-service:8080
-    - NOTIFICATION_URL=http://notification-service:8080
-    - FRONTEND_URL=http://localhost:9000
-    ports:  
-    - 8080:8080  
-      
+  discovery-server:
+    image: benhassan98/discovery-server-image
+    container_name: discovery-server
+    expose:
+    - 8761
+    healthcheck:
+      test: "curl --fail --silent localhost:8761/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s  
+  
+  config-server:
+    image: benhassan98/config-server-image
+    container_name: config-server
+    env_file:
+    - .config-server_env
+    expose:  
+    - 8888
+    healthcheck:
+      test: "curl --fail --silent localhost:8888/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 40s  
+    depends_on:
+      discovery-server:
+        condition: service_healthy
+
   account-service:
     image: benhassan98/account-service-image
     container_name: account-service
     env_file:
-    - .db_env
-    - .mq_env  
-    environment:  
-    - AUTH_URL=http://auth-server:8080  
-    - GATEWAY_URL=http://gateway-service:8080  
-    - FRONTEND_URL=http://localhost:9000
-    expose:
+    - .eureka_env
+    expose:  
     - 8080
-    depends_on:
-    - postgres
-    - rabbitmq
-    - auth-server 
-    - gateway-service  
+    depends_on:  
+      config-server:
+        condition: service_healthy
+      discovery-server:      
+        condition: service_healthy
+
 
   post-service:
     image: benhassan98/post-service-image
     container_name: post-service
     env_file:
-    - .db_env
-    - .mq_env
-    environment:  
-    - AUTH_URL=http://auth-server:8080
-    - GATEWAY_URL=http://gateway-server:8080
-    expose:
+    - .eureka_env
+    expose:  
     - 8080
     depends_on:  
-    - postgres
-    - rabbitmq
-    - auth-server
-    - gateway-service
-    
+      config-server:
+        condition: service_healthy
+      discovery-server:      
+        condition: service_healthy       
+
+
+
   chat-service:
     image: benhassan98/chat-service-image
     container_name: chat-service
     env_file:
-    - .db_env
-    - .mq_env
-    environment:  
-    - AUTH_URL=http://auth-server:8080
-    - GATEWAY_URL=http://gateway-service:8080
+    - .eureka_env
     expose:  
     - 8080
     depends_on:  
-    - postgres
-    - rabbitmq
-    - auth-server
-    - gateway-service
+      config-server:
+        condition: service_healthy
+      discovery-server:      
+        condition: service_healthy       
 
-  notification-service:    
+
+
+  notification-service:
     image: benhassan98/notification-service-image
     container_name: notification-service
     env_file:
-    - .db_env
-    - .mq_env
-    environment:  
-    - AUTH_URL=http://auth-server:8080
-    - GATEWAY_URL=http://gateway-service:8080
+    - .eureka_env
     expose:  
     - 8080
     depends_on:  
-    - postgres
-    - rabbitmq
-    - auth-server
-    - gateway-service
-  
+      config-server:
+        condition: service_healthy
+      discovery-server:      
+        condition: service_healthy       
+       
+  auth-server:
+    image: benhassan98/auth-server-image
+    container_name: auth-server
+    env_file:
+    - .eureka_env
+    expose:  
+    - 8080
+    depends_on:  
+      config-server:
+        condition: service_healthy
+      discovery-server:      
+        condition: service_healthy       
+   
+  gateway-service:
+    image: benhassan98/gateway-service-image
+    container_name: gateway-service
+    env_file:
+    - .eureka_env
+    ports:  
+    - 8080:8080
+    depends_on:  
+      config-server:
+        condition: service_healthy
+      discovery-server:      
+        condition: service_healthy        
+
+
+
   bff-service:
     image: benhassan98/bff-service-image
-    container_name: bff-service  
-    environment:
-    - APP_URL=http://localhost:9000
-    - REDIRECT_URL=http://bff-service:8080/oauth2/code
-    - AUTH_SERVER=http://auth-server:8080
-    - ACCOUNT_SERVICE=http://account-service:8080
-    - CLIENT_ID=client
-    - CLIENT_SECRET=secret
+    container_name: bff-service
+    env_file:
+    - .bff_env
     ports:  
-    - 8888:8080
-    depends_on:  
-    - auth-server  
-
-  frontend-service:
+    - 8081:8080
+      
+  frontent-service:
     image: benhassan98/frontend-service-image
     container_name: frontend-service
     ports:  
     - 9000:80
-    depends_on:  
-    - gateway-service
-    - bff-service  
-
+   

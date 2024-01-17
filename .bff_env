@@ -1,0 +1,7 @@
+APP_URL=http://localhost:9000
+REDIRECT_URI=http://bff-service:8080/oauth2/code
+AUTH_SERVER=http://auth-server:8080
+ACCOUNT_SERVICE=http://gateway-service:8080/account-service
+CLIENT_ID=oidc-client
+CLIENT_SECRET=4S4Hr..G0!JWOIh&
+PORT=8080
