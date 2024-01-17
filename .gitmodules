@@ -22,3 +22,9 @@
 [submodule "FrontendService"]
 	path = FrontendService
 	url = https://github.com/benHassan98/frontend-service.git
+[submodule "DiscoveryServer"]
+	path = DiscoveryServer
+	url = https://github.com/benHassan98/discovery-server.git
+[submodule "ConfigServer"]
+	path = ConfigServer
+	url = https://github.com/benHassan98/config-server.git
