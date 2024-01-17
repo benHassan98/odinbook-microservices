@@ -10,6 +10,10 @@ A Social Media App where users can create content, make friends and chat with ea
 * Users can chat with each other in real-time
 * real-time notification system
 
+# Architecture Diagram
+
+![Cloud Diagram](https://github.com/benHassan98/odinbook-microservices/blob/main/Cloud%20Architecture.jpeg?raw=true)
+
 ## Getting Started
 
 you need to clone the project by git or download it as a ZIP file
