@@ -2,6 +2,14 @@
 
 A Social Media App where users can create content, make friends and chat with each other
 
+# Features
+
+* Users can create and share posts with images
+* Users can comment on posts
+* Users can like posts
+* Users can chat with each other in real-time
+* real-time notification system
+
 ## Getting Started
 
 you need to clone the project by git or download it as a ZIP file
