@@ -12,7 +12,7 @@ A Social Media App where users can create content, make friends and chat with ea
 
 # Architecture Diagram
 
-![Cloud Diagram](https://github.com/benHassan98/odinbook-microservices/blob/main/Cloud%20Architecture.jpeg?raw=true)
+![Cloud Diagram](https://github.com/benHassan98/odinbook-microservices/blob/main/cloud-architecture.jpeg?raw=true)
 
 ## Getting Started
 
